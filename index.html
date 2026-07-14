@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium TopUp — Top Up Game Tercepat & Terpercaya</title>
+<meta name="description" content="Top up Mobile Legends, Free Fire, PUBG Mobile, Valorant, Genshin Impact dan game favorit lainnya. Proses instan, harga bersahabat, pembayaran lengkap.">
+<link rel="icon" type="image/png" href="assets/icons/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen">
+  <div class="loader-logo">PREMIUM TOPUP</div>
+  <div class="loader-ring"></div>
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <span class="brand-icon">⚡</span>
+      <span>Premium<span class="brand-text-glow">TopUp</span></span>
+    </a>
+    <nav>
+      <ul class="navbar-menu">
+        <li><a href="index.html" class="active">Beranda</a></li>
+        <li><a href="pages/games.html">Semua Game</a></li>
+        <li><a href="pages/pulsa.html">Pulsa</a></li>
+        <li><a href="pages/paket-data.html">Paket Data</a></li>
+        <li><a href="pages/pln.html">Token PLN</a></li>
+        <li><a href="pages/ewallet.html">E-Wallet</a></li>
+        <li><a href="pages/voucher.html">Voucher</a></li>
+        <li><a href="pages/bantuan.html">Bantuan</a></li>
+      </ul>
+    </nav>
+    <div class="navbar-actions">
+      <div data-auth="guest" style="display:flex;gap:10px;">
+        <a href="pages/login.html" class="btn btn-ghost btn-sm">Masuk</a>
+        <a href="pages/register.html" class="btn btn-primary btn-sm">Daftar</a>
+      </div>
+      <div data-auth="user" style="display:none;gap:10px;align-items:center;">
+        <a href="pages/riwayat.html" class="btn btn-ghost btn-sm">Riwayat</a>
+        <a href="pages/dashboard-user.html" class="btn btn-outline btn-sm">
+          <span data-auth="user-name">Akun Saya</span>
+        </a>
+      </div>
+    </div>
+    <button class="navbar-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="hero-blob blob-3"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge"><span class="dot"></span> Trusted by 500K+ Gamers Indonesia</div>
+          <h1 class="hero-title">
+            Top Up Game <span class="highlight" data-typing='["Instan.", "Termewah.", "Terpercaya.", "Tanpa Ribet."]'></span><span class="typing-cursor"></span>
+          </h1>
+          <p class="hero-desc">Isi ulang Diamond, UC, Points, dan voucher favoritmu dalam hitungan detik. Satu platform, semua kebutuhan gaming-mu.</p>
+
+          <div class="search-wrap">
+            <div class="search-bar">
+              <span>🔍</span>
+              <input type="text" id="search-input" placeholder="Cari game, misal: Mobile Legends...">
+            </div>
+            <div class="search-results" id="search-results"></div>
+          </div>
+
+          <div class="hero-actions mt-6">
+            <a href="pages/games.html" class="btn btn-primary btn-lg">Mulai Top Up</a>
+            <a href="pages/bantuan.html" class="btn btn-outline btn-lg">Cara Kerja</a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num" data-counter="500" data-suffix="K+">0</div>
+              <div class="hero-stat-label">Pengguna Aktif</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" data-counter="2" data-suffix="Jt+">0</div>
+              <div class="hero-stat-label">Transaksi Sukses</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" data-counter="4.9" data-suffix="/5">0</div>
+              <div class="hero-stat-label">Rating Pengguna</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="glass-card floating-card fc-1 hover-lift" style="width:220px;padding:18px;">
+            <div class="flex items-center gap-2 mb-2">
+              <span style="width:36px;height:36px;border-radius:10px;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;">💎</span>
+              <div>
+                <div style="font-weight:700;font-size:0.85rem;">Mobile Legends</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">172 Diamonds</div>
+              </div>
+            </div>
+            <div class="tag tag-success">Berhasil ✓</div>
+          </div>
+
+          <div class="glass-card floating-card fc-2 hover-lift" style="width:200px;padding:18px;">
+            <div class="flex items-center gap-2 mb-2">
+              <span style="width:36px;height:36px;border-radius:10px;background:var(--grad-secondary);display:flex;align-items:center;justify-content:center;">🔫</span>
+              <div>
+                <div style="font-weight:700;font-size:0.85rem;">PUBG Mobile</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">325 UC</div>
+              </div>
+            </div>
+            <div class="tag tag-blue">Diproses...</div>
+          </div>
+
+          <div class="glass-card floating-card fc-3 hover-lift" style="width:210px;padding:18px;">
+            <div class="flex items-center gap-2 mb-2">
+              <span style="width:36px;height:36px;border-radius:10px;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;">⚡</span>
+              <div>
+                <div style="font-weight:700;font-size:0.85rem;">Genshin Impact</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Welkin Moon</div>
+              </div>
+            </div>
+            <div class="tag tag-purple">QRIS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI -->
+  <section class="section container">
+    <div id="category-list" class="category-scroll" data-reveal="fade-up"></div>
+  </section>
+
+  <!-- PROMO SLIDER -->
+  <section class="section container">
+    <div class="slider" data-reveal="zoom">
+      <div class="slider-track">
+        <div class="slider-slide">
+          <img class="bg-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=450&fit=crop" alt="Promo">
+          <div class="slider-slide-content">
+            <span class="tag tag-blue mb-2" style="display:inline-block;">PROMO MINGGU INI</span>
+            <h3>Cashback 15% untuk Semua Top Up Mobile Legends</h3>
+            <p>Gunakan kode voucher <strong>ML15</strong> saat checkout. Berlaku sampai akhir bulan.</p>
+            <a href="pages/topup.html?game=mobile-legends" class="btn btn-primary btn-sm">Top Up Sekarang</a>
+          </div>
+        </div>
+        <div class="slider-slide">
+          <img class="bg-img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&h=450&fit=crop" alt="Promo">
+          <div class="slider-slide-content">
+            <span class="tag tag-purple mb-2" style="display:inline-block;">EVENT SPESIAL</span>
+            <h3>Bonus Diamond Ekstra Setiap Pembelian di Atas Rp100rb</h3>
+            <p>Berlaku untuk semua game populer, otomatis masuk ke akun kamu.</p>
+            <a href="pages/games.html" class="btn btn-primary btn-sm">Lihat Semua Game</a>
+          </div>
+        </div>
+        <div class="slider-slide">
+          <img class="bg-img" src="https://images.unsplash.com/photo-1586182987320-4f17e36a0184?w=1200&h=450&fit=crop" alt="Promo">
+          <div class="slider-slide-content">
+            <span class="tag tag-success mb-2" style="display:inline-block;">GRATIS ONGKOS ADMIN</span>
+            <h3>Bayar Pakai QRIS, Biaya Admin Ditanggung Kami</h3>
+            <p>Nikmati top up tanpa potongan biaya tambahan hari ini.</p>
+            <a href="pages/topup.html" class="btn btn-primary btn-sm">Coba Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <button class="slider-arrow prev" aria-label="Sebelumnya">‹</button>
+      <button class="slider-arrow next" aria-label="Selanjutnya">›</button>
+      <div class="slider-dots"></div>
+    </div>
+  </section>
+
+  <!-- FLASH SALE -->
+  <section class="section container">
+    <div class="flash-sale" data-reveal="fade-up">
+      <div class="flash-sale-head">
+        <div class="flash-sale-title">
+          <span>⚡</span>
+          <span class="shimmer-text">Flash Sale Hari Ini</span>
+        </div>
+        <div id="flash-countdown" class="countdown"></div>
+      </div>
+      <div class="game-grid" id="flash-sale-items">
+        <a href="pages/topup.html?game=mobile-legends" class="glass-card hover-lift" style="padding:16px;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">💎</div>
+          <div style="font-weight:700;font-size:0.85rem;">172 Diamonds</div>
+          <div style="text-decoration:line-through;color:var(--text-muted);font-size:0.72rem;">Rp49.000</div>
+          <div style="color:var(--neon-pink);font-weight:800;">Rp39.900</div>
+        </a>
+        <a href="pages/topup.html?game=free-fire" class="glass-card hover-lift" style="padding:16px;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">🔥</div>
+          <div style="font-weight:700;font-size:0.85rem;">140 Diamond</div>
+          <div style="text-decoration:line-through;color:var(--text-muted);font-size:0.72rem;">Rp23.500</div>
+          <div style="color:var(--neon-pink);font-weight:800;">Rp18.900</div>
+        </a>
+        <a href="pages/topup.html?game=pubg-mobile" class="glass-card hover-lift" style="padding:16px;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">🎯</div>
+          <div style="font-weight:700;font-size:0.85rem;">325 UC</div>
+          <div style="text-decoration:line-through;color:var(--text-muted);font-size:0.72rem;">Rp80.000</div>
+          <div style="color:var(--neon-pink);font-weight:800;">Rp69.900</div>
+        </a>
+        <a href="pages/topup.html?game=valorant" class="glass-card hover-lift" style="padding:16px;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">🎮</div>
+          <div style="font-weight:700;font-size:0.85rem;">1000 Points</div>
+          <div style="text-decoration:line-through;color:var(--text-muted);font-size:0.72rem;">Rp155.000</div>
+          <div style="color:var(--neon-pink);font-weight:800;">Rp139.900</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME POPULER -->
+  <section class="section container">
+    <div class="section-header" data-reveal="fade-up">
+      <div>
+        <div class="section-eyebrow">Trending</div>
+        <h2 class="section-title">Game Populer</h2>
+      </div>
+      <a href="pages/games.html" class="section-link">Lihat Semua →</a>
+    </div>
+    <div class="game-grid" id="popular-games"></div>
+  </section>
+
+  <!-- GAME TERBARU -->
+  <section class="section container">
+    <div class="section-header" data-reveal="fade-up">
+      <div>
+        <div class="section-eyebrow">Baru Ditambahkan</div>
+        <h2 class="section-title">Game Terbaru</h2>
+      </div>
+      <a href="pages/games.html" class="section-link">Lihat Semua →</a>
+    </div>
+    <div class="game-grid" id="new-games"></div>
+  </section>
+
+  <!-- STATISTIK -->
+  <section class="section container">
+    <div class="glass-card stats-grid" style="padding:var(--space-8) var(--space-5);" data-reveal-group>
+      <div class="stat-card">
+        <div class="stat-num" data-counter="500" data-suffix="K+">0</div>
+        <div class="stat-label">Pengguna Terdaftar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-counter="2000" data-suffix="K+">0</div>
+        <div class="stat-label">Transaksi Selesai</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-counter="14" data-suffix="+">0</div>
+        <div class="stat-label">Game Tersedia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-counter="99.8" data-suffix="%">0</div>
+        <div class="stat-label">Tingkat Keberhasilan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONI -->
+  <section class="section container">
+    <div class="section-header" data-reveal="fade-up">
+      <div>
+        <div class="section-eyebrow">Apa Kata Mereka</div>
+        <h2 class="section-title">Testimoni Pengguna</h2>
+      </div>
+    </div>
+    <div class="testi-grid" id="testimonial-list"></div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section container">
+    <div class="section-header text-center" style="justify-content:center;flex-direction:column;" data-reveal="fade-up">
+      <div class="section-eyebrow">Pertanyaan Umum</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </section>
+
+  <!-- PARTNER -->
+  <section class="section container">
+    <div class="section-header text-center" style="justify-content:center;flex-direction:column;" data-reveal="fade-up">
+      <div class="section-eyebrow">Dipercaya Oleh</div>
+    </div>
+    <div class="partner-strip" data-reveal="fade-up">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Garena_logo.svg/200px-Garena_logo.svg.png" alt="Garena" loading="lazy">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Riot_Games_2022_logo.svg/200px-Riot_Games_2022_logo.svg.png" alt="Riot Games" loading="lazy">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Steam_icon_logo.svg/200px-Steam_icon_logo.svg.png" alt="Steam" loading="lazy">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Google_Play_2022_icon.svg/200px-Google_Play_2022_icon.svg.png" alt="Google Play" loading="lazy">
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-brand">
+          <span class="brand-icon">⚡</span>
+          <span>Premium<span class="brand-text-glow">TopUp</span></span>
+        </a>
+        <p>Platform top up game #1 dengan proses instan, harga bersaing, dan keamanan transaksi terjamin untuk seluruh gamer Indonesia.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="YouTube">YT</a>
+          <a href="#" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">Layanan</div>
+        <div class="footer-links">
+          <a href="pages/games.html">Top Up Game</a>
+          <a href="pages/pulsa.html">Pulsa</a>
+          <a href="pages/paket-data.html">Paket Data</a>
+          <a href="pages/pln.html">Token PLN</a>
+          <a href="pages/ewallet.html">E-Wallet</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">Perusahaan</div>
+        <div class="footer-links">
+          <a href="pages/tentang.html">Tentang Kami</a>
+          <a href="pages/bantuan.html">Pusat Bantuan</a>
+          <a href="pages/voucher.html">Voucher & Promo</a>
+          <a href="pages/riwayat.html">Riwayat Transaksi</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">Kontak</div>
+        <div class="footer-links">
+          <a href="mailto:support@premiumtopup.id">support@premiumtopup.id</a>
+          <a href="https://wa.me/6281234567890">+62 812-3456-7890</a>
+          <a href="#">Live Chat 24/7</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Premium TopUp. Seluruh hak cipta dilindungi.</span>
+      <div class="footer-payments">
+        <span>QRIS</span><span>DANA</span><span>OVO</span><span>GoPay</span><span>ShopeePay</span><span>BCA VA</span><span>Alfamart</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Kembali ke atas">↑</button>
+
+<script src="js/toast.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/particle.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/search.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/app.js"></script>
+<script src="script.js"></script>
+</body>
+      </html>
