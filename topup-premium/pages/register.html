@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar — Premium TopUp</title>
+<link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-visual">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="auth-visual-content">
+      <h2>Gabung Bersama <span style="background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent;">500.000+</span> Gamer Lainnya</h2>
+      <p>Buat akun gratis dan nikmati kemudahan top up game favoritmu kapan saja.</p>
+
+      <div class="auth-feature">
+        <div class="auth-feature-icon">🎮</div>
+        <div class="auth-feature-text"><strong>14+ Game Tersedia</strong><span>Dari mobile hingga PC game populer</span></div>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon">💳</div>
+        <div class="auth-feature-text"><strong>Pembayaran Lengkap</strong><span>QRIS, e-wallet, VA, dan retail</span></div>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon">📊</div>
+        <div class="auth-feature-text"><strong>Riwayat Tersimpan</strong><span>Pantau semua transaksimu di satu tempat</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-form-wrap">
+      <a href="../index.html" class="navbar-brand" style="justify-content:center;">
+        <span class="brand-icon">⚡</span>
+        <span>Premium<span class="brand-text-glow">TopUp</span></span>
+      </a>
+      <h1 class="auth-title">Buat Akun Baru</h1>
+      <p class="auth-subtitle">Sudah punya akun? <a href="login.html" style="color:var(--neon-blue);font-weight:700;">Masuk di sini</a></p>
+
+      <form id="register-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Nama Lengkap</label>
+          <input type="text" id="reg-name" name="full_name" class="form-input" placeholder="Nama lengkap kamu" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email</label>
+          <input type="email" id="reg-email" name="email" class="form-input" placeholder="nama@email.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Nomor WhatsApp</label>
+          <input type="tel" id="reg-phone" name="phone" class="form-input" placeholder="08xxxxxxxxxx" autocomplete="tel" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Kata Sandi</label>
+          <div class="form-input-wrap">
+            <input type="password" id="reg-password" name="password" class="form-input" placeholder="Minimal 8 karakter" autocomplete="new-password" required>
+            <span class="toggle-password" data-target="reg-password">LIHAT</span>
+          </div>
+          <div class="password-strength" id="pw-strength-bars">
+            <div class="password-strength-bar"></div><div class="password-strength-bar"></div>
+            <div class="password-strength-bar"></div><div class="password-strength-bar"></div>
+          </div>
+          <div class="password-strength-label" id="pw-strength-label" style="color:var(--text-muted);"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-password2">Konfirmasi Kata Sandi</label>
+          <input type="password" id="reg-password2" name="password2" class="form-input" placeholder="Ulangi kata sandi" autocomplete="new-password" required>
+        </div>
+        <div class="form-row">
+          <label class="checkbox-wrap"><input type="checkbox" id="reg-terms" required> Saya menyetujui <a href="tentang.html" style="color:var(--neon-blue);">Syarat & Ketentuan</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="register-submit-btn">Daftar Sekarang</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="../js/toast.js"></script>
+<script src="../js/validation.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.toggle-password').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      const isPw = input.type === 'password';
+      input.type = isPw ? 'text' : 'password';
+      btn.textContent = isPw ? 'SEMBUNYI' : 'LIHAT';
+    });
+  });
+
+  const pwInput = document.getElementById('reg-password');
+  const bars = document.querySelectorAll('#pw-strength-bars .password-strength-bar');
+  const label = document.getElementById('pw-strength-label');
+  pwInput.addEventListener('input', () => {
+    const { score, label: text, color } = Validation.passwordStrength(pwInput.value);
+    bars.forEach((bar, i) => { bar.style.background = i < score ? color : 'rgba(255,255,255,0.08)'; });
+    label.textContent = pwInput.value ? text : '';
+    label.style.color = color;
+  });
+
+  const form = document.getElementById('register-form');
+  const submitBtn = document.getElementById('register-submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const pw = document.getElementById('reg-password').value;
+    const valid = Validation.validateForm({
+      '#reg-name': [Validation.rules.required, Validation.rules.minLength(3)],
+      '#reg-email': [Validation.rules.required, Validation.rules.email],
+      '#reg-phone': [Validation.rules.required, Validation.rules.phone],
+      '#reg-password': [Validation.rules.required, Validation.rules.minLength(8)],
+      '#reg-password2': [Validation.rules.required, Validation.rules.match(pw, 'Konfirmasi kata sandi')]
+    });
+    if (!valid) return;
+
+    if (!document.getElementById('reg-terms').checked) {
+      Toast.warning('Kamu harus menyetujui Syarat & Ketentuan terlebih dahulu.');
+      return;
+    }
+
+    const payload = {
+      full_name: document.getElementById('reg-name').value.trim(),
+      email: document.getElementById('reg-email').value.trim(),
+      phone: document.getElementById('reg-phone').value.trim(),
+      password: pw
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mendaftarkan...';
+
+    try {
+      const res = await fetch('../api/register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.message || 'Pendaftaran gagal, coba lagi.');
+      }
+
+      Toast.success('Akun berhasil dibuat! Silakan masuk.');
+      setTimeout(() => { window.location.href = 'login.html'; }, 1000);
+    } catch (err) {
+      Toast.error(err.message || 'Terjadi kesalahan, coba lagi.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Daftar Sekarang';
+    }
+  });
+});
+</script>
+</body>
+</html>
