@@ -1,0 +1,80 @@
+/* =====================================================
+   LOGIN.CSS - Styling halaman login & register
+   ===================================================== */
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-10);
+  overflow: hidden;
+  background: linear-gradient(160deg, #0c0c1c 0%, #05050a 100%);
+}
+.auth-visual .hero-blob { opacity: 0.4; }
+.auth-visual-content { position: relative; z-index: 2; max-width: 420px; }
+.auth-visual-content h2 { font-size: 2rem; margin-bottom: var(--space-4); }
+.auth-visual-content p { color: var(--text-secondary); margin-bottom: var(--space-6); }
+.auth-feature { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+.auth-feature-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: rgba(0,217,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.auth-feature-text strong { display: block; font-size: 0.9rem; }
+.auth-feature-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+.auth-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+.auth-form-wrap { width: 100%; max-width: 400px; }
+.auth-form-wrap .navbar-brand { margin-bottom: var(--space-8); justify-content: center; }
+.auth-title { font-size: 1.6rem; margin-bottom: var(--space-2); text-align: center; }
+.auth-subtitle { color: var(--text-secondary); text-align: center; margin-bottom: var(--space-8); font-size: 0.9rem; }
+
+.form-group { margin-bottom: var(--space-5); }
+.form-label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: var(--space-2); color: var(--text-secondary); }
+.form-input-wrap { position: relative; }
+.form-input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid var(--border-glass);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.form-input:focus { outline: none; border-color: var(--neon-blue); background: rgba(0,217,255,0.04); }
+.form-input.input-error { border-color: #ef4444; }
+.form-input-wrap .toggle-password {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 0.78rem; color: var(--text-muted); font-weight: 600;
+}
+
+.password-strength { display: flex; gap: 4px; margin-top: 8px; }
+.password-strength-bar { flex: 1; height: 4px; border-radius: var(--radius-full); background: rgba(255,255,255,0.08); transition: background var(--transition-fast); }
+.password-strength-label { font-size: 0.72rem; margin-top: 6px; }
+
+.form-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5); font-size: 0.85rem; }
+.checkbox-wrap { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); }
+.checkbox-wrap input { accent-color: var(--neon-blue); width: 16px; height: 16px; }
+
+.auth-divider { display: flex; align-items: center; gap: var(--space-4); margin: var(--space-6) 0; color: var(--text-muted); font-size: 0.8rem; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border-glass); }
+
+.social-login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: var(--radius-md); border: 1.5px solid var(--border-glass); font-size: 0.85rem; font-weight: 600; transition: all var(--transition-fast); }
+.social-btn:hover { border-color: var(--neon-blue); background: rgba(0,217,255,0.04); }
+
+.auth-footer-text { text-align: center; margin-top: var(--space-6); color: var(--text-secondary); font-size: 0.88rem; }
+.auth-footer-text a { color: var(--neon-blue); font-weight: 700; }
+
+@media (max-width: 900px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-visual { display: none; }
