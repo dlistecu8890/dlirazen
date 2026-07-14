@@ -1,0 +1,69 @@
+/* =====================================================
+   RESPONSIVE.CSS - Mobile-first breakpoint overrides
+   ===================================================== */
+
+/* ===== Tablet: max-width 1024px ===== */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { height: 320px; margin-top: var(--space-8); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .game-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+/* ===== Mobile nav: max-width 880px ===== */
+@media (max-width: 880px) {
+  .navbar-menu {
+    position: fixed;
+    top: var(--header-height); left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: rgba(8,8,16,0.96);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-glass);
+    padding: var(--space-5);
+    gap: var(--space-4);
+    transform: translateY(-140%);
+    opacity: 0;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+  }
+  .navbar-menu.open { transform: translateY(0); opacity: 1; }
+  .navbar-toggle { display: flex; }
+  .navbar-actions .btn-lg-hide { display: none; }
+}
+
+/* ===== Small tablet: max-width 768px ===== */
+@media (max-width: 768px) {
+  :root { --header-height: 66px; }
+  .container { padding: 0 var(--space-4); }
+  .hero { min-height: auto; padding-bottom: var(--space-8); }
+  .hero-title { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .section { padding: var(--space-8) 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .stat-num { font-size: 1.6rem; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .flash-sale-head { flex-direction: column; align-items: flex-start; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .slider-slide { padding: var(--space-5); }
+  .slider-slide-content h3 { font-size: 1.2rem; }
+}
+
+/* ===== Phone: max-width 560px ===== */
+@media (max-width: 560px) {
+  .game-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .category-chip { min-width: 92px; padding: var(--space-3) var(--space-4); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-badge { font-size: 0.7rem; }
+  .btn-lg { padding: 14px 24px; font-size: 0.92rem; }
+  .cursor-glow, .trail-dot { display: none; }
+  .countdown-box { min-width: 42px; padding: 6px 8px; }
+  .countdown-box .cd-num { font-size: 1rem; }
+}
+
+/* ===== Dashboard / admin layout responsive handled in dashboard.css / admin.css ===== */
