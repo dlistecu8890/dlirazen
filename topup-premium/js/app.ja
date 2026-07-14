@@ -1,0 +1,209 @@
+/**
+ * APP.JS
+ * Perilaku global yang dipakai di semua halaman:
+ * - Loading screen
+ * - Scroll reveal (IntersectionObserver)
+ * - Animated counter
+ * - Typing effect
+ * - Card tilt 3D
+ * - Ripple effect pada tombol
+ * - FAQ accordion
+ * - Auth state di navbar (cek sesi via localStorage token flag)
+ */
+(function () {
+  /* ---------- Loading Screen ---------- */
+  window.addEventListener('load', () => {
+    const loader = document.querySelector('.loading-screen');
+    if (loader) {
+      setTimeout(() => loader.classList.add('hidden'), 500);
+    }
+  });
+
+  /* ---------- Scroll Reveal ---------- */
+  function initScrollReveal() {
+    const targets = document.querySelectorAll('[data-reveal], [data-reveal-group]');
+    if (!targets.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach((t) => observer.observe(t));
+  }
+
+  /* ---------- Animated Counter ---------- */
+  function initCounters() {
+    const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseFloat(el.dataset.counter);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1600;
+        const start = performance.now();
+
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = target * eased;
+          el.textContent = (target % 1 === 0 ? Math.floor(value).toLocaleString('id-ID') : value.toFixed(1)) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.classList.add('counted');
+        }
+        requestAnimationFrame(tick);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((c) => observer.observe(c));
+  }
+
+  /* ---------- Typing Effect ---------- */
+  function initTyping() {
+    const el = document.querySelector('[data-typing]');
+    if (!el) return;
+    const words = JSON.parse(el.dataset.typing || '[]');
+    if (!words.length) return;
+    let wordIndex = 0, charIndex = 0, deleting = false;
+
+    function tick() {
+      const current = words[wordIndex];
+      if (!deleting) {
+        charIndex++;
+        el.textContent = current.slice(0, charIndex);
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(tick, 1400);
+          return;
+        }
+      } else {
+        charIndex--;
+        el.textContent = current.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+      setTimeout(tick, deleting ? 40 : 90);
+    }
+    tick();
+  }
+
+  /* ---------- Card Tilt 3D ---------- */
+  function initTilt() {
+    const cards = document.querySelectorAll('.tilt-card');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = ((y / rect.height) - 0.5) * -14;
+        const ry = ((x / rect.width) - 0.5) * 14;
+        card.style.setProperty('--rx', rx + 'deg');
+        card.style.setProperty('--ry', ry + 'deg');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  /* ---------- Ripple Effect ---------- */
+  function initRipple() {
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn');
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      btn.style.position = btn.style.position || 'relative';
+      btn.style.overflow = 'hidden';
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  }
+
+  /* ---------- FAQ Accordion ---------- */
+  function initFaq() {
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      if (!question || !answer) return;
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((other) => {
+          if (other !== item) {
+            other.classList.remove('open');
+            other.querySelector('.faq-answer').style.maxHeight = null;
+          }
+        });
+        item.classList.toggle('open', !isOpen);
+        answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+      });
+    });
+  }
+
+  /* ---------- Auth State di Navbar ---------- */
+  function initAuthState() {
+    const guestActions = document.querySelector('[data-auth="guest"]');
+    const userActions = document.querySelector('[data-auth="user"]');
+    const userNameEl = document.querySelector('[data-auth="user-name"]');
+    const session = getSession();
+
+    if (session) {
+      if (guestActions) guestActions.style.display = 'none';
+      if (userActions) userActions.style.display = 'flex';
+      if (userNameEl) userNameEl.textContent = session.full_name || session.email;
+    } else {
+      if (guestActions) guestActions.style.display = 'flex';
+      if (userActions) userActions.style.display = 'none';
+    }
+
+    const logoutBtn = document.querySelector('[data-action="logout"]');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          await fetch('api/logout.php', { method: 'POST' });
+        } catch (err) { /* diamkan, tetap hapus sesi lokal */ }
+        clearSession();
+        window.location.href = 'login.html';
+      });
+    }
+  }
+
+  function getSession() {
+    try {
+      const raw = localStorage.getItem('ptu_session');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function setSession(data) { localStorage.setItem('ptu_session', JSON.stringify(data)); }
+  function clearSession() { localStorage.removeItem('ptu_session'); }
+
+  window.Session = { get: getSession, set: setSession, clear: clearSession };
+
+  /* ---------- Currency Formatter ---------- */
+  window.formatRupiah = function (num) {
+    return 'Rp' + Math.round(num).toLocaleString('id-ID');
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
+    initCounters();
+    initTyping();
+    initTilt();
+    initRipple();
+    initFaq();
+    initAuthState();
+  });
+})();
